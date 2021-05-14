@@ -1,11 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { removeAccount, withdrawCash, depositCash } from "../actions";
+import {removeAccount, withdrawCash, depositCash} from "../actions";
 
 
 class AccountsList extends React.Component {
     removeAccount = (accountName) => {
         this.props.removeAccount(accountName.id);           //changed _id -> id
+    }
+    onFormSubmit = (event) => {
+        event.preventDefault();
+
+        if (event === depositCash) {
+            this.props.depositCash(this.state.moneyAmount);
+        }
+        //min 38 in lecture video change
+        if (event === withdrawCash) {
+            this.props.withdrawCash(this.state.moneyAmount);
+        }
+
+        this.setState({moneyAmount: 0, balance: 0});    //clear out of
     }
 
     renderList() {
@@ -16,18 +29,42 @@ class AccountsList extends React.Component {
 
                     <div>account: {acc.id}</div>
                     <div>Name : {acc.name}</div>
-                        <div>Balance : {acc.amount}</div>
-                    <button type="button" className="btn btn-danger float-right">DELETE</button>
-                    <button type="button" className="btn btn-success float-right">INFO</button>
-                    <button type="button" className="btn btn-info float-right">DEPOSIT </button>
+                    <div>Balance : {acc.amount}</div>
+
+                    <form onSubmit={this.onFormSubmit}>
+                        <div className="form-group">
+                            <label> Amount:  </label>
+                            <input type="text" className="form-control"
+                                   onChange={(e) => this.setState({moneyAmount: e.target.value})}/>
+
+                        </div>
+
+                        <button type="button"
+                                onClick={() => this.props.depositCash(this.props.acc._id, this.state.moneyAmount)}
+                                className="btn btn-success">
+                            Deposit
+                        </button>
+
+                        <button type="button"
+                                onClick={() => this.props.withdrawCash(this.props.acc._id, this.state.moneyAmount)}
+                                className="btn btn-info">
+                            Withdraw
+                        </button>
+
+
+                        <button type="button"
+                                onClick={() => this.props.removeAccount(this.props.accounts.acc)}
+                                className="btn btn-danger">
+                            Delete
+                        </button>
+                    </form>
                 </li>
             );
         })
     }
 
     render() {
-        console.log(this.props.accounts)
-        console.log("HEllo hhh")
+
         const accts = this.renderList()
 
         return (
@@ -49,4 +86,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps)(AccountsList);
+export default connect(mapStateToProps, {depositCash, withdrawCash, removeAccount})(AccountsList);
