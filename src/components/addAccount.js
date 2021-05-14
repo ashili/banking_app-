@@ -1,39 +1,40 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import {addAccount} from "../actions";
 
 class AddAccount extends React.Component {
 
-    state = {name: "", type: "", amount: 0}
+    state = { newAc: '', newBalance: ''}
 
     OnFormSubmit = (event) => {
         event.preventDefault();
+        this.props.addAccount(this.state.newAc);
+        this.setState({ newAc: ''})
     }
 
     render() {
         return (
-            <form onSubmit={this.OnFormSubmit}>
+            <form className = "form-group" onSubmit={this.OnFormSubmit}>
+                <h3 className="text-center"> Register User Account </h3>
                 <div className="form-group">
                     <label>Name</label>
-                    <input type="text" className="form-control"
-                           name="name" value={this.state.name}
-                           onChange={event => this.setState({name: event.target.value})}/>
+                    <input type = "text" className = "form-control"
+                           name = "newAc"
+                           value = {this.state.newAc}
+                           onChange={(e) => this.setState({newAc: e.target.value})}/>
                 </div>
-                <div className="form-group">
-                    <label>Type</label>
-                    <input type="text" className="form-control"
-                           name="type" value={this.state.type}
-                           onChange={event => this.setState({type: event.target.value})}/>
 
-                </div>
                 <div className="form-group">
                     <label>Amount</label>
-                    <input type="text" className="form-control"
-                           name="amount" value={this.state.amount}
-                           onChange={event => this.setState({amount: event.target.value})}/>
+                    <input type = "text" className = "form-control"
+                           name = "newBal"
+                           value = {this.state.newBal}
+                           onChange={(e) => this.setState({newBal: e.target.value})}/>
                 </div>
-                <input type="submit" className="btn btn-success" value = "Add Account"/>
+                <button className = "btn btn-success" value = "submit">Register</button>
             </form>
         )
     }
 }
 
-export default AddAccount
+export default connect(null, {addAccount})(AddAccount);

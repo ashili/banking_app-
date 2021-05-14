@@ -1,8 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { removeAccount, withdrawCash, depositCash } from "../actions";
 
 
 class AccountsList extends React.Component {
+    removeAccount = (accountName) => {
+        this.props.removeAccount(accountName.id);           //changed _id -> id
+    }
 
     renderList() {
         let accountsList = this.props.accounts

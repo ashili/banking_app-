@@ -1,9 +1,9 @@
 
-export const addAccount = (name, balance, status) => {
+export const addAccount = (name, balance) => {
     return{
         type: 'ADD_ACCOUNT',
         payload: {
-            name, balance, status
+            name, balance
         }
     };
 };
@@ -15,18 +15,20 @@ export const removeAccount = (accountId) => {
     }
 }
 
-export const switchAccount = (accountId) => {
+export const depositCash = (accountId, amount) => {
     return {
-        type: 'SWITCH_ACCOUNT',
-        payload: accountId
+        type: 'DEPOSIT_CASH',
+        payload: {
+            accountId, amount
+        }
     }
 }
 
-export const addTransaction = (name, type, amount) => {
+export const withdrawCash = (accountId, amount) => {
     return {
-        type: 'ADD_TRANSACTION',
+        type: 'WITHDRAW_CASH',
         payload: {
-            name, type, amount
+            accountId, amount
         }
     }
 }
