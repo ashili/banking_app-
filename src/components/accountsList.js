@@ -18,10 +18,7 @@ class AccountsList extends React.Component {
                     <button type="button" className="btn btn-info float-right">DEPOSIT </button>
                 </li>
             );
-
-
         })
-
     }
 
     render() {
@@ -31,7 +28,7 @@ class AccountsList extends React.Component {
 
         return (
             <div>
-                <h3>ACCOUNTS</h3>
+                <h3 className="text-center">ACCOUNTS</h3>
                 <ul className="list-group">
                     {accts}
                 </ul>
@@ -43,7 +40,8 @@ class AccountsList extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        accounts: state.accounts
+        accounts: state.accounts.accounts,
+        transactions: state.accounts.transactions
     };
 }
 

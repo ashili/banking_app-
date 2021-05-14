@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Header from './header'
 import AddAccount from "./addAccount";
 import AccountsList from "./accountsList";
+import TransactionsList from "./TransactionsList";
 
 const App = () => {
     return (
@@ -17,7 +18,7 @@ const App = () => {
                             <AccountsList />
                         </Route>
                         <Route path='/listView'>
-                            <div> LIST VIEW</div>
+                            <TransactionsList />
                         </Route>
                         <Route path='/addAccount'>
                             <AddAccount />
